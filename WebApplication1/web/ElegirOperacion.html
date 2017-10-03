@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formulario modificacion</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript">
+            var BASE = localStorage.getItem("baseDatos");
+
+            window.onload = function mostarTabla() {
+                document.getElementById("tablaSelect").innerHTML = BASE;
+            }
+
+            function seleccionarConsulta(envio) {
+                //COGEMOS EL DIV DONDE PONDREMOS LOS DATOS
+                var consultaHTML = document.getElementById('formularioModificacion');
+
+                if (envio === "MODIFICACIONES") { //agregar
+                    consultaHTML.innerHTML =
+                            "<p><input type='hidden' name='envio' value='MODIFICACIONES'></p>" +
+                            "<p><input type='hidden' name='BASE' value='" + BASE + "'></p>";
+                } else if (envio === "EXPORTACIONES") {//editar
+                    consultaHTML.innerHTML =
+                            "<p><input type='hidden' name='envio' value='EXPORTACIONES'></p>" +
+                            "<p><input type='hidden' name='BASE' value='" + BASE + "'></p>";
+                } else if (envio === "IMPORTACIONES") {//editar
+                    consultaHTML.innerHTML =
+                            "<p><input type='hidden' name='envio' value='IMPORTACIONES'></p>" +
+                            "<p><input type='hidden' name='BASE' value='" + BASE + "'></p>";
+                } 
+            }
+
+        </script>
+    </head>
+    <body>
+        <form method="post" id="formu" action="./Operaciones">
+            <table> 
+                <tr>
+                    <td>Introduce tu usuario</td>
+                    <td><input type="text" value="root" name="nombreUsuario" size="25"></td>
+                </tr>
+                <tr>
+                    <td>Introduce tu contraseña</td>
+                    <td><input type="password" name="password" size="10" maxlength="9"></td>
+                </tr>
+                <tr>
+                    <td>     
+                        <h1>Introduce acción</h1>
+                    </td>
+                 </tr>
+                  <tr>
+                    <td>Base datos elegida</td>
+                    <td><div id="tablaSelect"></div></td>
+                 </tr>
+                  <tr>
+                    <td>
+                        <select onchange="seleccionarConsulta(this.value)">
+                            <option value="">Elije operación</option>
+                            <option value="MODIFICACIONES">MODIFICACIONES</option>
+                            <option value="IMPORTACIONES">IMPORTACIONES</option>
+                            <option value="EXPORTACIONES">EXPORTACIONES</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div id="formularioModificacion"></div>
+                    </td>    
+                </tr>
+            </table>
+            <input type="submit" formaction="./ElegirBaseDatos.jsp" value="Voler a elegir base datos">
+            <input type="submit" formaction="./index.jsp" value="Inicio">
+            <input type="reset" value="Borrar">
+            <input type="submit" value="Enviar">
+        </form>
+
+    </body>
+</html>
